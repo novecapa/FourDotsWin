@@ -9,11 +9,6 @@ import Foundation
 
 struct Play {
 
-    enum Player {
-        case human
-        case iphone
-    }
-    
     let player: Player
     let index: Int
 

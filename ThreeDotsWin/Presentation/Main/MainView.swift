@@ -9,40 +9,36 @@ import SwiftUI
 
 struct MainView: View {
 
-    @State var viewModel = MainViewModel()
-    @State var plays: [Play?] = Array(repeating: nil, count: 9)
-    @State var isHumaTurn: Bool = true
+    enum Constants {
+        static let spacing: CGFloat = 6
+    }
+
+    @StateObject var viewModel = MainViewModel()
 
     var body: some View {
         GeometryReader { geometry in
             VStack {
                 Spacer()
-                LazyVGrid(columns: viewModel.columns, spacing: 6) {
-                    ForEach(0..<9) { dot in
-                        ZStack {
-                            Circle()
-                                .foregroundColor(.blue)
-                                .frame(width: geometry.size.width/3 - 18,
-                                       height: geometry.size.width/3 - 18)
-                            Image(systemName: plays[dot]?.image ?? "")
-                                .resizable()
-                                .frame(width: 40, height: 40)
-                                .foregroundColor(.white)
-                        }
+                LazyVGrid(columns: viewModel.gridItems, spacing: Constants.spacing) {
+                    ForEach(0..<viewModel.totalPositions, id: \.self) { position in
+                        ItemView(sizeWitdh: geometry.size.width,
+                                 imageName: viewModel.plays[position]?.image,
+                                 columnsCount: viewModel.columns)
                         .onTapGesture {
-                            guard !viewModel.isSquareOccupied(plays: plays, index: dot) else { return }
-                            plays[dot] = Play(player: .human, index: dot)
-
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                let computerPosition = viewModel.determinateComputerPosition(plays: plays)
-                                plays[computerPosition] = Play(player: .iphone, index: computerPosition)
-                            }
+                            viewModel.checkPlay(item: position)
                         }
                     }
                 }
                 Spacer()
             }
+            .disabled(viewModel.isBoardDisabled)
             .padding()
+            .alert(item: $viewModel.alertItem) {
+                Alert(title: $0.title,
+                      message: $0.message,
+                      dismissButton: .default($0.buttonTitle,
+                                              action: { viewModel.resetGame() }))
+            }
         }
     }
 }
