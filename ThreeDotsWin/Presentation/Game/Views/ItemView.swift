@@ -10,28 +10,19 @@ import SwiftUI
 struct ItemView: View {
 
     enum Constants {
-        static let padding: CGFloat = 6
-        static let imageFrame: CGFloat = 40
-        static let circleColor: Color = .green
-        static let imageColor: Color = .white
+        static let padding: CGFloat = 4
     }
 
     let sizeWitdh: CGFloat
-    let imageName: String?
+    let circleColor: Color?
     let columnsCount: CGFloat
 
     var body: some View {
-        ZStack {
-            Circle()
-                .foregroundColor(Constants.circleColor)
-                .frame(width: sizeFrame,
-                       height: sizeFrame)
-            Image(systemName: imageName ?? "")
-                .resizable()
-                .frame(width: Constants.imageFrame,
-                       height: Constants.imageFrame)
-                .foregroundColor(Constants.imageColor)
-        }
+        Circle()
+            .foregroundColor(circleColor ?? .white)
+            .frame(width: sizeFrame,
+                   height: sizeFrame)
+            .padding(Constants.padding)
     }
 
     var sizeFrame: CGFloat {
@@ -40,5 +31,7 @@ struct ItemView: View {
 }
 
 #Preview {
-    ItemView(sizeWitdh: 512, imageName: "basketball", columnsCount: 3)
+    ItemView(sizeWitdh: 1024,
+             circleColor: .yellow,
+             columnsCount: 4)
 }

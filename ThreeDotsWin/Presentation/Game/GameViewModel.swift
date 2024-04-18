@@ -11,17 +11,30 @@ import SwiftUI
 final class GameViewModel: ObservableObject {
 
     enum Constants {
-        static let winPatterns: Set<Set<Int>> = [[0, 1, 2], [3, 4, 5],
-                                                 [6, 7, 8], [0, 3, 6],
-                                                 [1, 4, 7], [2, 5, 8],
-                                                 [0, 4, 8], [2, 4, 6]]
-        static let centerSquare: Int = 4
+        static let winPatterns: Set<Set<Int>> = [
+            // Horizontal
+            [0, 1, 2, 3, 4, 5],
+            [6, 7, 8, 9, 10, 11],
+            [12, 13, 14, 15, 16, 17],
+            [18, 19, 20, 21, 22, 23],
+            [24, 25, 26, 27, 28, 29],
+            [30, 31, 32, 33, 34, 35],
+            // Vertical
+            [0, 6, 12, 18, 24, 30],
+            [1, 7, 13, 19, 25, 31],
+            [2, 8, 14, 20, 26, 32],
+            [3, 9, 15, 21, 27, 33],
+            [4, 10, 16, 22, 28, 34],
+            [5, 11, 17, 23, 29, 35],
+            // Diagonal
+            [0, 7, 14, 21, 28, 35],
+            [5, 10, 15, 20, 25, 30]
+        ]
+        static let centerSquare: Int = 15
 
-        static let gridItems: [GridItem] = [GridItem(.flexible()),
-                                            GridItem(.flexible()),
-                                            GridItem(.flexible())]
+        static let gridItems: [GridItem] = Array(repeating: GridItem(.flexible()), count: 6)
 
-        static let totalPositions: Int = 9
+        static let totalPositions: Int = 36
 
         static let iosPlayIn: CGFloat = 0.5
     }
@@ -29,6 +42,8 @@ final class GameViewModel: ObservableObject {
     @Published var plays: [Play?] = Array(repeating: nil, count: Constants.totalPositions)
     @Published var isBoardDisabled: Bool = false
     @Published var alertItem: AlertItem?
+    var useCase: GameUseCaseProtocol?
+    private var game: Game?
 
     func checkPlay(item position: Int) {
         guard !isSquareOccupied(plays: plays, index: position) else { return }
@@ -37,10 +52,12 @@ final class GameViewModel: ObservableObject {
 
         if checkWinConditions(player: .human, plays: plays) {
             alertItem = humanWinAlert
+            endGame(winner: .human)
             return
         }
         if checkForDraw(plays: plays) {
             alertItem = nobodyWinAlert
+            endGame(winner: nil)
             return
         }
 
@@ -51,18 +68,32 @@ final class GameViewModel: ObservableObject {
             isBoardDisabled = false
             if checkWinConditions(player: .machine, plays: plays) {
                 alertItem = machineWinAlert
+                endGame(winner: .machine)
                 return
             }
             if checkForDraw(plays: plays) {
                 alertItem = nobodyWinAlert
+                endGame(winner: nil)
                 return
             }
         }
     }
 
-    func resetGame() {
+    func startGame() {
+        do {
+            let res = try useCase?.gamesList()
+            print("\(res?.count ?? 0)")
+        } catch {
+            print("\(error.localizedDescription)")
+        }
+        saveGame()
         isBoardDisabled = false
         plays = Array(repeating: nil, count: totalPositions)
+    }
+
+    func resetGame() {
+        endGame(winner: nil)
+        startGame()
     }
 
     var totalPositions: Int {
@@ -75,6 +106,23 @@ final class GameViewModel: ObservableObject {
 
     var columns: CGFloat {
         CGFloat(gridItems.count)
+    }
+}
+// MARK: Game results persistence
+extension GameViewModel {
+    private func saveGame() {
+        game = Game(id: UUID(), startDate: Date(), endDate: Date(), winner: nil)
+        guard let game else { return }
+        useCase?.saveGame(game: game)
+    }
+
+    private func endGame(winner: Player?) {
+        if var game {
+            game.endDate = Date()
+            game.winner = winner?.rawValue
+            useCase?.saveGame(game: game)
+        }
+        game = nil
     }
 }
 // MARK: Alerts

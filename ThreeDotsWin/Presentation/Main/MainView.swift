@@ -22,17 +22,11 @@ struct MainView: View {
         NavigationStack {
             TabView {
                 GameViewBuilder().build(viewModel: gameViewModel)
-//                    .navigationBarItems(trailing: Button("New game", action: {
-//                        gameViewModel.resetGame()
-//                    }))
                     .tabItem {
                         Image(systemName: "1.square.fill")
                         Text("Game")
                     }
                 ResultsHistoryView(viewModel: resultsViewModel)
-//                    .navigationBarItems(trailing: Button("tttt", action: {
-//                        gameViewModel.resetGame()
-//                    }))
                     .tabItem {
                         Image(systemName: "2.square.fill")
                         Text("Results")

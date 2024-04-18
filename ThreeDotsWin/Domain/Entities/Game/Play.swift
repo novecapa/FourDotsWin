@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Play {
 
     let player: Player
     let index: Int
 
-    var image: String {
-        player == .human ? "basketball" : "soccerball"
+    var color: Color {
+        player == .human ? .yellow : .red
     }
 }

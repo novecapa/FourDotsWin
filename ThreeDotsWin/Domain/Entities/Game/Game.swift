@@ -10,8 +10,8 @@ import Foundation
 struct Game {
     let id: UUID
     let startDate: Date
-    let endDate: Date
-    let winner: String?
+    var endDate: Date
+    var winner: String?
 }
 extension Game {
     var toSD: SDGame {
