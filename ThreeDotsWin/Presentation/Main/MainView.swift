@@ -2,43 +2,43 @@
 //  MainView.swift
 //  ThreeDotsWin
 //
-//  Created by Josep Cerdá Penadés on 17/4/24.
+//  Created by Josep Cerdá Penadés on 18/4/24.
 //
 
 import SwiftUI
 
+enum Tab: String {
+    case one
+    case two
+    case third
+}
+
 struct MainView: View {
 
-    enum Constants {
-        static let spacing: CGFloat = 6
-    }
-
-    @StateObject var viewModel = MainViewModel()
-
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                Spacer()
-                LazyVGrid(columns: viewModel.gridItems, spacing: Constants.spacing) {
-                    ForEach(0..<viewModel.totalPositions, id: \.self) { position in
-                        ItemView(sizeWitdh: geometry.size.width,
-                                 imageName: viewModel.plays[position]?.image,
-                                 columnsCount: viewModel.columns)
-                        .onTapGesture {
-                            viewModel.checkPlay(item: position)
-                        }
+        NavigationStack {
+            TabView {
+                GameView()
+                    .tabItem {
+                        Image(systemName: "1.square.fill")
+                        Text("Game")
                     }
-                }
-                Spacer()
+                    .tag(0)
+                Text("Second Tab")
+                    .tabItem {
+                        Image(systemName: "2.square.fill")
+                        Text("List")
+                    }
+                    .tag(1)
+                Text("Third Tab")
+                    .tabItem {
+                        Image(systemName: "3.square.fill")
+                        Text("Third")
+                    }
+                    .tag(2)
             }
-            .disabled(viewModel.isBoardDisabled)
-            .padding()
-            .alert(item: $viewModel.alertItem) {
-                Alert(title: $0.title,
-                      message: $0.message,
-                      dismissButton: .default($0.buttonTitle,
-                                              action: { viewModel.resetGame() }))
-            }
+            .navigationTitle("fffffff")
+            .navigationBarItems(trailing: Text("N"))
         }
     }
 }

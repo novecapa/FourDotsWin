@@ -1,5 +1,5 @@
 //
-//  Mainswift
+//  GameViewModel.swift
 //  ThreeDotsWin
 //
 //  Created by Josep Cerdá Penadés on 17/4/24.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-final class MainViewModel: ObservableObject {
+final class GameViewModel: ObservableObject {
 
     enum Constants {
         static let winPatterns: Set<Set<Int>> = [[0, 1, 2], [3, 4, 5],
@@ -78,7 +78,7 @@ final class MainViewModel: ObservableObject {
     }
 }
 // MARK: Alerts
-private extension MainViewModel {
+private extension GameViewModel {
     private var humanWinAlert: AlertItem {
         AlertHelper(title: "You Win!".localized(),
                     message: "Can you win so fast?",
@@ -98,7 +98,7 @@ private extension MainViewModel {
     }
 }
 // MARK: Game logic
-private extension MainViewModel {
+private extension GameViewModel {
     private func isSquareOccupied(plays: [Play?], index: Int) -> Bool {
         plays.contains(where: { $0?.index == index })
     }
