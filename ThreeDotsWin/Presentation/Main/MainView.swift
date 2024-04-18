@@ -15,30 +15,29 @@ enum Tab: String {
 
 struct MainView: View {
 
+    @StateObject private var gameViewModel = GameViewModel()
+    @StateObject private var resultsViewModel = ResultsHistoryViewModel()
+
     var body: some View {
         NavigationStack {
             TabView {
-                GameView()
+                GameViewBuilder().build(viewModel: gameViewModel)
+//                    .navigationBarItems(trailing: Button("New game", action: {
+//                        gameViewModel.resetGame()
+//                    }))
                     .tabItem {
                         Image(systemName: "1.square.fill")
                         Text("Game")
                     }
-                    .tag(0)
-                Text("Second Tab")
+                ResultsHistoryView(viewModel: resultsViewModel)
+//                    .navigationBarItems(trailing: Button("tttt", action: {
+//                        gameViewModel.resetGame()
+//                    }))
                     .tabItem {
                         Image(systemName: "2.square.fill")
-                        Text("List")
+                        Text("Results")
                     }
-                    .tag(1)
-                Text("Third Tab")
-                    .tabItem {
-                        Image(systemName: "3.square.fill")
-                        Text("Third")
-                    }
-                    .tag(2)
             }
-            .navigationTitle("fffffff")
-            .navigationBarItems(trailing: Text("N"))
         }
     }
 }

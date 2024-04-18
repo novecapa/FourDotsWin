@@ -8,4 +8,9 @@
 import Foundation
 import SwiftUI
 
-final class GameViewBuilder {}
+final class GameViewBuilder {
+    func build(viewModel: GameViewModel?) -> GameView {
+        let view = GameView(viewModel: viewModel ?? GameViewModel())
+        return view
+    }
+}
