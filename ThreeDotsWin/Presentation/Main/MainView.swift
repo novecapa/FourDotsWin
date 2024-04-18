@@ -26,7 +26,7 @@ struct MainView: View {
                         Image(systemName: "1.square.fill")
                         Text("Game")
                     }
-                ResultsHistoryView(viewModel: resultsViewModel)
+                ResultsHistoryViewBuilder().build(viewModel: resultsViewModel)
                     .tabItem {
                         Image(systemName: "2.square.fill")
                         Text("Results")

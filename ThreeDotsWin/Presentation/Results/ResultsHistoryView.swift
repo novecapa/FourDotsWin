@@ -12,7 +12,16 @@ struct ResultsHistoryView: View {
     @StateObject var viewModel: ResultsHistoryViewModel
 
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView {
+            VStack {
+                ForEach(viewModel.games, id: \.id) { game in
+                    Text(game.winner ?? "")
+                    Text(game.startDate.ISO8601Format())
+                }
+            }.onAppear {
+                viewModel.getResultHistory()
+            }
+        }
     }
 }
 

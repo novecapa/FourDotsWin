@@ -12,10 +12,10 @@ import SwiftData
 class SDGame {
     @Attribute(.unique) var id: UUID
     var startDate: Date
-    var endDate: Date?
+    var endDate: Date
     var winner: String?
 
-    init(id: UUID, startDate: Date, endDate: Date?, winner: String?) {
+    init(id: UUID, startDate: Date, endDate: Date, winner: String?) {
         self.id = id
         self.startDate = startDate
         self.endDate = endDate
@@ -25,7 +25,7 @@ class SDGame {
 
 extension SDGame {
     var duration: Double {
-        endDate?.timeIntervalSince(startDate) ?? 0
+        endDate.timeIntervalSince(startDate)
     }
 
     var winnerName: Player? {
@@ -44,7 +44,7 @@ extension SDGame {
     var toEntity: Game {
         Game(id: id,
              startDate: startDate,
-             endDate: endDate ?? startDate,
+             endDate: endDate,
              winner: winner)
     }
 }

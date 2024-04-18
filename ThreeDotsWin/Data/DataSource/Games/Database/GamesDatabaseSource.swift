@@ -17,8 +17,9 @@ final class GamesDatabaseSource: GamesDatabaseSourceProtocol {
 
     @MainActor
     func gamesList() throws -> [SDGame] {
-        let fetchDescriptor = FetchDescriptor<SDGame>(predicate: nil,
-                                                      sortBy: [SortDescriptor<SDGame>(\.startDate)])
+        let fetchDescriptor = FetchDescriptor<SDGame>(predicate: #Predicate {
+            $0.startDate < $0.endDate
+        }, sortBy: [SortDescriptor<SDGame>(\.startDate, order: .reverse)])
         return try modelContainer.mainContext.fetch(fetchDescriptor)
     }
 

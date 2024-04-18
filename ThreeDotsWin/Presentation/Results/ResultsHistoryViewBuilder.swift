@@ -1,19 +1,19 @@
 //
-//  GameViewBuilder.swift
+//  ResultsHistoryViewBuilder.swift
 //  ThreeDotsWin
 //
-//  Created by Josep Cerdá Penadés on 17/4/24.
+//  Created by Josep Cerdá Penadés on 18/4/24.
 //
 
 import Foundation
 
-final class GameViewBuilder {
-    func build(viewModel: GameViewModel?) -> GameView {
+final class ResultsHistoryViewBuilder {
+    func build(viewModel: ResultsHistoryViewModel?) -> ResultsHistoryView {
         let databaseSource = GamesDatabaseSource()
         let repository = GamesRepository(databaseSource: databaseSource)
         let useCase = GameUseCase(repository: repository)
         viewModel?.useCase = useCase
-        let view = GameView(viewModel: viewModel ?? GameViewModel())
+        let view = ResultsHistoryView(viewModel: viewModel ?? ResultsHistoryViewModel())
         return view
     }
 }
