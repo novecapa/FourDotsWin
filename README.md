@@ -9,7 +9,6 @@ The main goal is to provide an interactive game between a human player and the m
 - **Two TabBars:** The application utilizes two tabs for better organization and user experience. One tab focuses on a gameplay, while the other displays a history of results.
 - **Results History:** In the results tab, a list of previous games is shown, including information such as the winner, date and time of the game, as well as its duration.
 - **Clean Architecture:** The project follows the principles of Clean Architecture to ensure clear separation of concerns and easy scalability and maintenance of the codebase.
-- **MVVM:** The Model-View-ViewModel (MVVM) design pattern is used to separate presentation logic from business logic and enhance testability and code reusability.
 - **SOLID Principles:** SOLID principles are applied to promote clean, flexible, and extensible code design.
 - **Data Persistence with SwiftData:** For storing game results, SwiftData, a Swift data persistence library providing a simple and efficient solution, has been integrated.
 
