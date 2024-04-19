@@ -1,10 +1,10 @@
 //
-//  ThreeDotsWinUITests.swift
-//  ThreeDotsWinUITests
+//  FourDotsWinUITests.swift
+//  FourDotsWinUITests
 //
 //  Created by Josep Cerdá Penadés on 17/4/24.
 //
 
 import XCTest
 
-final class ThreeDotsWinUITests: XCTestCase {}
+final class FourDotsWinUITests: XCTestCase {}

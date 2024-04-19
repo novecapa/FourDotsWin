@@ -1,11 +1,11 @@
 //
-//  ThreeDotsWinTests.swift
-//  ThreeDotsWinTests
+//  FourDotsWinTests.swift
+//  FourDotsWinTests
 //
 //  Created by Josep Cerdá Penadés on 17/4/24.
 //
 
 import XCTest
-@testable import ThreeDotsWin
+@testable import FourDotsWin
 
-final class ThreeDotsWinTests: XCTestCase {}
+final class FourDotsWinTests: XCTestCase {}
