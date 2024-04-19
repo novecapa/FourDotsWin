@@ -42,6 +42,8 @@ final class GameViewModel: ObservableObject {
         static let totalPositions: Int = 36
 
         static let iosPlayIn: CGFloat = 0.5
+
+        static let resetGameIn: CGFloat = 2.0
     }
 
     @Published var plays: [Play?] = Array(repeating: nil, count: Constants.totalPositions)
@@ -91,8 +93,11 @@ final class GameViewModel: ObservableObject {
     }
 
     func resetGame() {
-        endGame(winner: nil)
-        startGame()
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.resetGameIn) { [weak self] in
+            guard let self else { return }
+            self.endGame(winner: nil)
+            self.startGame()
+        }
     }
 
     var totalPositions: Int {
@@ -129,19 +134,19 @@ extension GameViewModel {
 private extension GameViewModel {
     private var humanWinAlert: AlertItem {
         AlertHelper(title: "You Win!".localized(),
-                    message: "Can you win so fast?",
+                    message: "Can you win so fast?".localized(),
                     buttonTitle: "Start new game".localized()).alertItem
     }
 
     private var nobodyWinAlert: AlertItem {
         AlertHelper(title: "Anybody win...".localized(),
-                    message: "Play again 🥹",
+                    message: "Play again 🥹".localized(),
                     buttonTitle: "Start new game".localized()).alertItem
     }
 
     private var machineWinAlert: AlertItem {
         AlertHelper(title: "Machine Win!".localized(),
-                    message: "The machine is to smart than you...",
+                    message: "The machine is to smart than you...".localized(),
                     buttonTitle: "Start new game".localized()).alertItem
     }
 }
