@@ -13,6 +13,10 @@ The main goal is to provide an interactive game between a human player and the m
 - **SOLID Principles:** SOLID principles are applied to promote clean, flexible, and extensible code design.
 - **Data Persistence with SwiftData:** For storing game results, SwiftData, a Swift data persistence library providing a simple and efficient solution, has been integrated.
 
+## Demo
+
+https://github.com/novecapa/FourDotsWin/assets/16121312/0408bcc7-a1aa-4fee-85e9-3db3a275786d
+
 ## System Requirements
 
 - iOS 17
