@@ -14,12 +14,14 @@ class SDGame {
     var startDate: Date
     var endDate: Date
     var winner: String?
+    var endGame: Bool
 
-    init(id: UUID, startDate: Date, endDate: Date, winner: String?) {
+    init(id: UUID, startDate: Date, endDate: Date, winner: String?, endGame: Bool) {
         self.id = id
         self.startDate = startDate
         self.endDate = endDate
         self.winner = winner
+        self.endGame = endGame
     }
 }
 
@@ -45,6 +47,7 @@ extension SDGame {
         Game(id: id,
              startDate: startDate,
              endDate: endDate,
-             winner: winner)
+             winner: winner,
+             endGame: endGame)
     }
 }

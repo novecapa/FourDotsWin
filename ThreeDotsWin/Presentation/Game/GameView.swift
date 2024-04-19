@@ -22,8 +22,7 @@ struct GameView: View {
         NavigationStack {
             GeometryReader { geometry in
                 VStack {
-                    Spacer()
-                    Text("Play the game".localized())
+                    Text("Play".localized())
                         .font(.title)
                     Spacer()
                     ZStack {

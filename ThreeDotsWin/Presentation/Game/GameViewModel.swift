@@ -110,7 +110,7 @@ final class GameViewModel: ObservableObject {
 // MARK: Game results persistence
 extension GameViewModel {
     private func saveGame() {
-        game = Game(id: UUID(), startDate: Date(), endDate: Date(), winner: nil)
+        game = Game(id: UUID(), startDate: Date(), endDate: Date(), winner: nil, endGame: false)
         guard let game else { return }
         useCase?.saveGame(game: game)
     }
@@ -119,6 +119,7 @@ extension GameViewModel {
         if var game {
             game.endDate = Date()
             game.winner = winner?.rawValue
+            game.endGame = true
             useCase?.saveGame(game: game)
         }
         game = nil

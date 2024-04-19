@@ -15,10 +15,17 @@ final class GamesDatabaseSource: GamesDatabaseSourceProtocol {
         SwiftDataContainer.modelContainer
     }
 
+    /*
+     let calendar = Calendar.current
+     // Calcula las diferencias entre las dos fechas
+     let diferencia = calendar.dateComponents([.hour, .minute, .second], from: startDate, to: endDate)
+     // Accede a las componentes de la diferencia
+     if let horas = diferencia.hour, let minutos = diferencia.minute, let segundos = diferencia.second {
+     */
     @MainActor
     func gamesList() throws -> [SDGame] {
         let fetchDescriptor = FetchDescriptor<SDGame>(predicate: #Predicate {
-            $0.startDate < $0.endDate
+            $0.endGame == true
         }, sortBy: [SortDescriptor<SDGame>(\.startDate, order: .reverse)])
         return try modelContainer.mainContext.fetch(fetchDescriptor)
     }
