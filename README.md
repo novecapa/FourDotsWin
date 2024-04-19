@@ -1,4 +1,4 @@
-# Connect4Game SwiftUI Project
+# FourDotsWin - SwiftUI Project
 
 This project is an example implementation of a game similar to Connect 4 using SwiftUI.
 The main goal is to provide an interactive game between a human player and the machine, along with the ability to store and display results of previous games.
