@@ -36,14 +36,10 @@ final class GameViewModel: ObservableObject {
         ]
 
         static let centerSquare: [Int] = [14, 15, 20, 21]
-
         static let gridItems: [GridItem] = Array(repeating: GridItem(.flexible()), count: 6)
-
         static let totalPositions: Int = 36
-
         static let iosPlayIn: CGFloat = 0.5
-
-        static let resetGameIn: CGFloat = 2.0
+        static let resetGameIn: CGFloat = 1.5
     }
 
     @Published var plays: [Play?] = Array(repeating: nil, count: Constants.totalPositions)
@@ -134,19 +130,19 @@ extension GameViewModel {
 private extension GameViewModel {
     private var humanWinAlert: AlertItem {
         AlertHelper(title: "You Win!".localized(),
-                    message: "Can you win so fast?".localized(),
+                    message: "You can do it faster".localized(),
                     buttonTitle: "Start new game".localized()).alertItem
     }
 
     private var nobodyWinAlert: AlertItem {
-        AlertHelper(title: "Anybody win...".localized(),
+        AlertHelper(title: "Nobody wins...".localized(),
                     message: "Play again 🥹".localized(),
                     buttonTitle: "Start new game".localized()).alertItem
     }
 
     private var machineWinAlert: AlertItem {
         AlertHelper(title: "Machine Win!".localized(),
-                    message: "The machine is to smart than you...".localized(),
+                    message: "The machine is smarter than you...".localized(),
                     buttonTitle: "Start new game".localized()).alertItem
     }
 }
@@ -192,9 +188,7 @@ private extension GameViewModel {
     private func checkWinConditions(player: Player, plays: [Play?]) -> Bool {
         // Remove nil and check play
         let plays = plays.compactMap { $0 }.filter { $0.player == player }
-        // : Comment this line
         let playerPositions = Set(plays.map { $0.index })
-        // : Comment this line
         guard playerPositions.count > 3 else { return false }
         if hasConsecutiveFour(in: Array(playerPositions)) {
             return true

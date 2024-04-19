@@ -9,13 +9,21 @@ import SwiftUI
 
 struct ResultsHistoryView: View {
 
+    enum Constants {
+        static let textColor: Color = .textPin
+        static let backgroundColor: Color = .backgroundPin
+    }
+
     @StateObject var viewModel: ResultsHistoryViewModel
 
     var body: some View {
         VStack {
             Spacer()
-            Text("Results".localized())
-                .font(.title)
+            HStack {
+                Text("Results".localized())
+                    .font(.title)
+                    .foregroundColor(Constants.textColor)
+            }
             ScrollView {
                 VStack {
                     ForEach(viewModel.games, id: \.id) { game in
@@ -28,6 +36,7 @@ struct ResultsHistoryView: View {
             }
             Spacer()
         }
+        .background(Constants.backgroundColor)
     }
 }
 

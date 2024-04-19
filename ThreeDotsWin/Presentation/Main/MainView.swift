@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-enum Tab: String {
-    case one
-    case two
-    case third
-}
-
 struct MainView: View {
+
+    enum Constants {
+        static let iconGame: String = "gamecontroller"
+        static let iconResults: String = "list.bullet.circle"
+        static let tintColor: Color = .bluePin
+    }
 
     @StateObject private var gameViewModel = GameViewModel()
     @StateObject private var resultsViewModel = ResultsHistoryViewModel()
@@ -23,15 +23,16 @@ struct MainView: View {
             TabView {
                 GameViewBuilder().build(viewModel: gameViewModel)
                     .tabItem {
-                        Image(systemName: "1.square.fill")
-                        Text("Game")
+                        Image(systemName: Constants.iconGame)
+                        Text("Game".localized())
                     }
                 ResultsHistoryViewBuilder().build(viewModel: resultsViewModel)
                     .tabItem {
-                        Image(systemName: "2.square.fill")
-                        Text("Results")
+                        Image(systemName: Constants.iconResults)
+                        Text("Results".localized())
                     }
             }
+            .tint(Constants.tintColor)
         }
     }
 }

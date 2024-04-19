@@ -9,6 +9,14 @@ import SwiftUI
 
 struct ResultRow: View {
 
+    enum Constants {
+        static let cellColor: Color = Color.gray.opacity(0.2)
+        static let textColor: Color = .textPin
+        static let lineColor: Color = .bluePin
+        static let cornerRadius: CGFloat = 6
+        static let lineHeight: CGFloat = 4
+    }
+
     let game: Game
 
     var body: some View {
@@ -27,20 +35,20 @@ struct ResultRow: View {
                 .padding(.leading)
                 VStack(alignment: .leading, content: {
                     Text(game.dateStartString)
-                        .foregroundColor(.black)
+                        .foregroundColor(Constants.textColor)
                     Text(game.gameDuration)
-                        .foregroundColor(.black)
+                        .foregroundColor(Constants.textColor)
                 })
                 .padding()
                 Spacer()
             }
             Rectangle()
-                .fill(.blue)
-                .frame(height: 4)
+                .fill(Constants.lineColor)
+                .frame(height: Constants.lineHeight)
                 .padding(.vertical, 1)
         }
-        .background(Color.gray.opacity(0.2))
-        .cornerRadius(6)
+        .background(Constants.cellColor)
+        .cornerRadius(Constants.cornerRadius)
         .padding(.horizontal)
     }
 }

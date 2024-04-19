@@ -12,4 +12,8 @@ extension String {
     func localized(comment: String = "") -> String {
         return NSLocalizedString(self, comment: comment)
     }
+
+    var removeEnters: String {
+        self.replacingOccurrences(of: "\n", with: "")
+    }
 }

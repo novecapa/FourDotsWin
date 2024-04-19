@@ -13,6 +13,7 @@ struct Game {
     enum Constants {
         static let dateFormat = "dd/MM/YYYY HH:mm"
     }
+
     let id: UUID
     let startDate: Date
     var endDate: Date
@@ -21,7 +22,11 @@ struct Game {
 }
 extension Game {
     var toSD: SDGame {
-        SDGame(id: id, startDate: startDate, endDate: endDate, winner: winner, endGame: endGame)
+        SDGame(id: id,
+               startDate: startDate,
+               endDate: endDate,
+               winner: winner,
+               endGame: endGame)
     }
 
     var dateStartString: String {
@@ -37,18 +42,42 @@ extension Game {
     }
 
     var gameDuration: String {
+        // Strings
+        let duration = "Game duration".localized()
+        let hours = "hours".localized()
+        let minutes = "minutes".localized()
+        let seconds = "seconds".localized()
+        let and = "and".localized()
+        // Date values
         let calendar = Calendar.current
-        let diferencia = calendar.dateComponents([.hour, .minute, .second], from: startDate, to: endDate)
-        if let horas = diferencia.hour, let minutos = diferencia.minute, let segundos = diferencia.second {
-            if horas > 0 {
-                return "Duración: \(horas) horas, \(minutos) minutos y \(segundos) segundos."
-            } else if minutos > 0 {
-                return "Duración: \(minutos) minutos y \(segundos) segundos."
+        let difference = calendar.dateComponents([.hour, .minute, .second],
+                                                 from: startDate, to: endDate)
+        if let hrs = difference.hour,
+           let min = difference.minute,
+           let sec = difference.second {
+            if hrs > 0 {
+                return """
+                \(duration.localized()):
+                 \(hours.localized()) \(hrs),
+                 \(min) \(minutes.localized())
+                 \(and.localized())
+                 \(sec) \(seconds.localized()).
+                """.removeEnters
+            } else if min > 0 {
+                return """
+                \(duration.localized()):
+                 \(min) \(minutes.localized())
+                 \(and.localized())
+                 \(sec) \(seconds.localized()).
+                """.removeEnters
             } else {
-                return "Duración: \(segundos) segundos."
+                return """
+                \(duration.localized()):
+                 \(sec) \(seconds.localized()).
+                """.removeEnters
             }
         } else {
-            return "Duración: n"
+            return ""
         }
     }
 
@@ -72,6 +101,6 @@ extension Game {
     }
 
     var colorWinner: Color {
-        winnerName == .human ? .yellow : .red
+        winnerName == .human ? .yellowPin : .redPin
     }
 }
