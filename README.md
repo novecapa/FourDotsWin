@@ -15,7 +15,8 @@ The main goal is to provide an interactive game between a human player and the m
 
 ## Demo
 
-https://github.com/novecapa/FourDotsWin/assets/16121312/0408bcc7-a1aa-4fee-85e9-3db3a275786d
+https://github.com/novecapa/FourDotsWin/assets/16121312/f9647711-1c9a-4083-8492-17b825cf02ce
+
 
 ## System Requirements
 
