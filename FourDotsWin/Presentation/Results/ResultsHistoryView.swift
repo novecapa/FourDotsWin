@@ -14,7 +14,7 @@ struct ResultsHistoryView: View {
         static let backgroundColor: Color = .backgroundPin
     }
 
-    @StateObject var viewModel: ResultsHistoryViewModel
+    @State var viewModel: ResultsHistoryViewModel
 
     var body: some View {
         VStack {
@@ -41,5 +41,5 @@ struct ResultsHistoryView: View {
 }
 
 #Preview {
-    ResultsHistoryView(viewModel: ResultsHistoryViewModel())
+    ResultsHistoryView(viewModel: ResultsHistoryViewModel(useCase: GameUseCase(repository: GamesRepository(databaseSource: GamesDatabaseSource()))))
 }

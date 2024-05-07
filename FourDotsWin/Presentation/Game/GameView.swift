@@ -18,7 +18,7 @@ struct GameView: View {
         static let backgroundColor: Color = .backgroundPin
     }
 
-    @StateObject var viewModel: GameViewModel
+    @State var viewModel: GameViewModel
 
     var body: some View {
         GeometryReader { geometry in
@@ -67,5 +67,5 @@ struct GameView: View {
 }
 
 #Preview {
-    GameView(viewModel: GameViewModel())
+    GameView(viewModel: GameViewModel(useCase: GameUseCase(repository: GamesRepository(databaseSource: GamesDatabaseSource()))))
 }

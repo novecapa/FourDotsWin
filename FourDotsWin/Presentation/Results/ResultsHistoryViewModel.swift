@@ -5,17 +5,21 @@
 //  Created by Josep Cerdá Penadés on 18/4/24.
 //
 
-import Foundation
 import SwiftUI
 
-final class ResultsHistoryViewModel: ObservableObject {
+@Observable
+final class ResultsHistoryViewModel {
 
-    @Published var games: [Game] = []
-    var useCase: GameUseCaseProtocol?
+    var games: [Game] = []
+    
+    private let useCase: GameUseCaseProtocol
+    init(useCase: GameUseCaseProtocol) {
+        self.useCase = useCase
+    }
 
     func getResultHistory() {
         do {
-            games = try useCase?.gamesList() ?? []
+            games = try useCase.gamesList()
         } catch {
             print(error.localizedDescription)
         }

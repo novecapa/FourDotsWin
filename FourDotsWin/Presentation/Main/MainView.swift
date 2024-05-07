@@ -15,18 +15,15 @@ struct MainView: View {
         static let tintColor: Color = .bluePin
     }
 
-    @StateObject private var gameViewModel = GameViewModel()
-    @StateObject private var resultsViewModel = ResultsHistoryViewModel()
-
     var body: some View {
         NavigationStack {
             TabView {
-                GameViewBuilder().build(viewModel: gameViewModel)
+                GameViewBuilder().build()
                     .tabItem {
                         Image(systemName: Constants.iconGame)
                         Text("Game".localized())
                     }
-                ResultsHistoryViewBuilder().build(viewModel: resultsViewModel)
+                ResultsHistoryViewBuilder().build()
                     .tabItem {
                         Image(systemName: Constants.iconResults)
                         Text("Results".localized())

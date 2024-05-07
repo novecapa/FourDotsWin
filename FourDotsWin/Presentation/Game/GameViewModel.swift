@@ -5,10 +5,10 @@
 //  Created by Josep Cerdá Penadés on 17/4/24.
 //
 
-import Foundation
 import SwiftUI
 
-final class GameViewModel: ObservableObject {
+@Observable
+final class GameViewModel {
 
     enum Constants {
         static let winPatterns: Set<Set<Int>> = [
@@ -42,11 +42,15 @@ final class GameViewModel: ObservableObject {
         static let resetGameIn: CGFloat = 1.5
     }
 
-    @Published var plays: [Play?] = Array(repeating: nil, count: Constants.totalPositions)
-    @Published var isBoardDisabled: Bool = false
-    @Published var alertItem: AlertItem?
-    var useCase: GameUseCaseProtocol?
+    var plays: [Play?] = Array(repeating: nil, count: Constants.totalPositions)
+    var isBoardDisabled: Bool = false
+    var alertItem: AlertItem?
     private var game: Game?
+
+    private let useCase: GameUseCaseProtocol
+    init(useCase: GameUseCaseProtocol) {
+        self.useCase = useCase
+    }
 
     func checkPlay(item position: Int) {
         guard !isSquareOccupied(plays: plays, index: position) else { return }
@@ -113,7 +117,7 @@ extension GameViewModel {
     private func saveGame() {
         game = Game(id: UUID(), startDate: Date(), endDate: Date(), winner: nil, endGame: false)
         guard let game else { return }
-        useCase?.saveGame(game: game)
+        useCase.saveGame(game: game)
     }
 
     private func endGame(winner: Player?) {
@@ -121,7 +125,7 @@ extension GameViewModel {
             game.endDate = Date()
             game.winner = winner?.rawValue
             game.endGame = true
-            useCase?.saveGame(game: game)
+            useCase.saveGame(game: game)
         }
         game = nil
     }

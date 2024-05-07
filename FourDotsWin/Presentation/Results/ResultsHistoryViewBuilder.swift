@@ -8,12 +8,12 @@
 import Foundation
 
 final class ResultsHistoryViewBuilder {
-    func build(viewModel: ResultsHistoryViewModel?) -> ResultsHistoryView {
+    func build() -> ResultsHistoryView {
         let databaseSource = GamesDatabaseSource()
         let repository = GamesRepository(databaseSource: databaseSource)
         let useCase = GameUseCase(repository: repository)
-        viewModel?.useCase = useCase
-        let view = ResultsHistoryView(viewModel: viewModel ?? ResultsHistoryViewModel())
+        let viewModel = ResultsHistoryViewModel(useCase: useCase)
+        let view = ResultsHistoryView(viewModel: viewModel)
         return view
     }
 }
